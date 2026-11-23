@@ -1,0 +1,26 @@
+name: Baixar imagens do Landingi
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - assets-lista.json
+      - baixar_imagens.py
+
+permissions:
+  contents: write
+
+jobs:
+  baixar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixar imagens
+        run: python3 baixar_imagens.py
+      - name: Salvar imagens no repositório
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets
+          git diff --cached --quiet || git commit -m "Imagens copiadas do Landingi para o site"
+          git push
