@@ -566,6 +566,8 @@ body{background-color:rgba(34, 44, 25, 1);background-image:none;overflow-x:hidde
 #w82 li:nth-child(3){margin-top:11px}
 #w82 li:nth-child(4){margin-top:18px}
 #w82 li:nth-child(5){margin-top:12px}
+#w67 .vivi-card{font-size:14px;padding:16px;line-height:1.45}
+#w67 .vivi-carrossel{padding-bottom:10px}
 }
 </style>
 <!-- Meta Pixel Code -->
@@ -811,6 +813,14 @@ src="https://www.facebook.com/tr?id=1585798279880081&ev=PageView&noscript=1"
     var w=document.documentElement.clientWidth;
     var z=w<768? w/320 : (w<1200? w/1200 : 1);
     page.style.zoom=z;
+    // vídeos: o player do YouTube não pode ser ampliado junto (fica torto);
+    // ele recebe o tamanho real da tela e zoom neutro.
+    document.querySelectorAll('.w-video iframe').forEach(function(f){
+      var p=f.parentNode;
+      f.style.zoom=1/z;
+      f.style.width=(p.offsetWidth*z)+'px';
+      f.style.height=(p.offsetHeight*z)+'px';
+    });
   }
   fit(); window.addEventListener('resize',fit);
   // acordeão (FAQ)
