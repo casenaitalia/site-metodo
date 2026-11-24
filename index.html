@@ -857,6 +857,14 @@ src="https://www.facebook.com/tr?id=1585798279880081&ev=PageView&noscript=1"
     });
   }
   fit(); window.addEventListener('resize',fit);
+
+  // Meta Pixel: início de compra ao tocar em qualquer botão que leva à Eduzz
+  document.addEventListener('click',function(e){
+    var a=e.target.closest && e.target.closest('a[href*="eduzz.com"]');
+    if(!a||typeof fbq!=='function') return;
+    var bf=document.documentElement.classList.contains('bf-on');
+    fbq('track','InitiateCheckout',{content_name:'Método Casar na Itália',value:bf?97:147,currency:'BRL'});
+  },true);
   // acordeão (FAQ)
   document.querySelectorAll('.accordion-heading-container').forEach(function(h){
     function t(){
